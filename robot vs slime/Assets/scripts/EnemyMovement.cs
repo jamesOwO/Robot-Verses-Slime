@@ -1,69 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 public class EnemyMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private float moveSpeed;
-    private float movehorizontal;
-    private float movevertical;
     private float jumpforce;
     private BoxCollider2D coll;
     [SerializeField] private LayerMask jumpableGround;
     public GameObject player;
-    Transform target;
-
-
+    float player_coord, enemy_coord;
+    float direction;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        moveSpeed = 7f;
-        jumpforce = 10f;
+        moveSpeed = 2f;
+        jumpforce = 8f;
         coll = GetComponent<BoxCollider2D>();
+        bool i = false;
+        var watch = new Stopwatch();
+        watch.Start();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(Thingy());
+        Jump();
     }
 
-    IEnumerator Thingy()
+    private void Jump()
     {
-        //target = GameObject.FindWithTag("Player").transform;
-        //Vector3 forwardAxis = new Vector3(0, 0, -1);
 
-
-
-
-        bool i = true;
-
-        while (i == true)
+        player_coord = player.transform.position.x;
+        enemy_coord = this.transform.position.x;
+        UnityEngine.Debug.Log("jump");
+        if (IsGrounded() == true)
         {
-            Debug.Log("jump");
-
             rb.velocity = new Vector2(rb.velocity.x, jumpforce);
-
-            if (IsGrounded() == false)
-            {
-                //rb.velocity = new Vector2(direction * moveSpeed, rb.velocity.y);
-                //transform.LookAt(target.position, forwardAxis);
-                //Debug.DrawLine(transform.position, target.position);
-                //transform.eulerAngles = new Vector3(0, 0, -transform.eulerAngles.z);
-                //transform.position -= transform.TransformDirection(Vector2.up) * 0.0000001f;
-
-            }
-
-
-
-
-            yield return new WaitForSeconds(2);
         }
+
+        if (IsGrounded() == false)
+        {
+            if (player_coord <= enemy_coord)
+            {
+                direction = -1;
+            }
+            else if (player_coord >= enemy_coord)
+            {
+                direction = +1;
+            }
+            rb.velocity = new Vector2(direction * moveSpeed, rb.velocity.y);
+
+        }
+
+
     }
     private bool IsGrounded()
     {

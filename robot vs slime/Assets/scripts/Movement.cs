@@ -14,7 +14,9 @@ public class Movement : MonoBehaviour
     public Animator animator;
     private BoxCollider2D coll;
     [SerializeField] private LayerMask jumpableGround;
-    public GameObject menuUI;
+    public GameObject menuUI, heart1, heart2, heart3;
+    int health = 3;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,6 +28,23 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        if (health == 0)
+        {
+            heart1.SetActive(false);
+        }
+
+        if (health == 1)
+        {
+            heart2.SetActive(false);
+        }
+
+        if (health == 2)
+        {
+            heart3.SetActive(false);
+        }
+
+
+
         if (menuUI.activeInHierarchy == false)
         {
 
@@ -81,6 +100,11 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.tag == "Portal")
         {
             menuUI.SetActive(true);
+        }
+        if (collision.gameObject.tag == "Enemy")
+        {
+            health = health - 1;
+            Debug.Log("ouch");
         }
     }
 }
