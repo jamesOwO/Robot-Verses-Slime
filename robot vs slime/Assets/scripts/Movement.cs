@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private float moveSpeed;
     private float movehorizontal;
-    private float movevertical;
     private float jumpforce;
-    private bool isjumping;
     public Animator animator;
     private BoxCollider2D coll;
     [SerializeField] private LayerMask jumpableGround;
@@ -105,6 +101,10 @@ public class Movement : MonoBehaviour
         {
             health = health - 1;
             Debug.Log("ouch");
+        }
+        if (collision.gameObject.tag == "Death")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

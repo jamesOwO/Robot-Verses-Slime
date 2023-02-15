@@ -39,6 +39,11 @@ public class MathsQuestion : MonoBehaviour
                 Debug.Log("equal");
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
+            else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            }
         }
     }
     

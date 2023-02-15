@@ -1,15 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 public class EnemyMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private float moveSpeed;
-    private float jumpforce;
+    public float moveSpeed;
+    public float jumpforce;
     private BoxCollider2D coll;
     [SerializeField] private LayerMask jumpableGround;
     public GameObject player;
@@ -20,10 +16,7 @@ public class EnemyMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        moveSpeed = 2f;
-        jumpforce = 8f;
         coll = GetComponent<BoxCollider2D>();
-        bool i = false;
         var watch = new Stopwatch();
         watch.Start();
 
