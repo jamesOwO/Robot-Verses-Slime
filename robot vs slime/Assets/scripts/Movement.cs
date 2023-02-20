@@ -18,7 +18,7 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         
         moveSpeed = 7f;
-        jumpforce = 10f;
+        jumpforce = 11f;
         coll = GetComponent<BoxCollider2D>();
     }
 
@@ -102,7 +102,7 @@ public class Movement : MonoBehaviour
             health = health - 1;
             Debug.Log("ouch");
         }
-        if (collision.gameObject.tag == "Death")
+        if (collision.gameObject.tag == "Death" || health <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

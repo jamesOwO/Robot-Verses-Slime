@@ -11,6 +11,7 @@ public class EnemyMovement : MonoBehaviour
     public GameObject player;
     float player_coord, enemy_coord;
     float direction;
+    public GameObject menuUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +26,10 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Jump();
+        if (menuUI.activeInHierarchy == false)
+        {
+            Jump();
+        }
     }
 
     private void Jump()
